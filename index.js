@@ -96,7 +96,7 @@ const redditLogin = async () => {
 
 (async () => {
   // Initialize Puppeteer with the stealth plugin
-  browser = await puppeteer.launch({ headless: false });
+  browser = await puppeteer.launch({ headless: true });
 
   await redditLogin();
 
