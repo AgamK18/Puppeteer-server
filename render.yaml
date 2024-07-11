@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: puppeteer-tor-app
+    env: node
+    plan: starter
+    buildCommand: 'render-build.sh'
+    startCommand: 'node index.js'
+    envVars:
+      - key: NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME
+        value: duatu0e1v
+      - key: NEXT_PUBLIC_CLOUDINARY_API_KEY
+        value: 283457447597752
+      - key: NEXT_PUBLIC_CLOUDINARY_API_SECRET
+        value: DE6uynyxxZqFCBX9mD82RXpknIE
+      - key: PUPPETEER_CACHE_DIR
+        value: /opt/render/project/puppeteer
