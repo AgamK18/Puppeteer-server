@@ -60,9 +60,45 @@ async function runLoginByPass(page, loginByPassCode) {
   }
 }
 
+const redditLogin = async () => {
+  const page = await browser.newPage();
+
+  // Navigate to the Reddit login page
+  await page.goto('https://www.reddit.com/login/', { waitUntil: 'networkidle2' });
+
+  // Enter the username
+  await page.type('#login-username', 'dummy.4.sprinklr@gmail.com', { delay: 100 });
+
+  // Enter the password
+  await page.type('#login-password', 'sprinklrintern', { delay: 100 });
+
+  // Simulate pressing "Enter"
+  await page.keyboard.press('Enter');
+
+  // Wait for navigation to complete
+  await page.waitForNavigation({ waitUntil: 'networkidle2' });
+
+  // Check if login was successful
+  const loginSuccess = await page.evaluate(() => {
+    return !document.querySelector('#login-username');
+  });
+
+  if (loginSuccess) {
+    console.log('Login successful');
+  } else {
+    console.log('Login failed');
+  }
+
+  await page.close();
+}
+
+
+
 (async () => {
   // Initialize Puppeteer with the stealth plugin
-  browser = await puppeteer.launch({ headless: true });
+  browser = await puppeteer.launch({ headless: false });
+
+  await redditLogin();
 
   // Middleware to parse JSON requests
   app.use(express.json());
