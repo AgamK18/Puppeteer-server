@@ -5,10 +5,16 @@ const { PNG } = require('pngjs');
 const StealthPlugin = require('puppeteer-extra-plugin-stealth');
 const cloudinary = require('cloudinary').v2;
 const { PassThrough } = require('stream');
+const cronJob = require('./cron');
 puppeteer.use(StealthPlugin());
 
 const app = express();
 const port = 3000;
+
+// Define a simple healthcheck endpoint
+app.get('/healthcheck', (req, res) => {
+  res.status(200).send('OK');
+});
 
 let browser;
 
@@ -157,6 +163,7 @@ async function runLoginByPass(page, loginByPassCode) {
   // Start the server
   app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
+    cronJob.job.start(); // Start the cron job when the server starts
   });
 
   // Close the browser when the process exits
