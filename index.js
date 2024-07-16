@@ -70,9 +70,6 @@ async function runLoginByPass(page, loginByPassCode) {
   // Initialize Puppeteer with the stealth plugin and Tor proxy
   browser = await puppeteer.launch({
     headless: true,
-    args: [
-      '--proxy-server=socks5://127.0.0.1:9050'
-    ]
   });
 
   // Middleware to parse JSON requests
